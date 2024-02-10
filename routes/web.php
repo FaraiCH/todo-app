@@ -35,7 +35,7 @@ require __DIR__.'/auth.php';
 
 // Show All Tasks
 Route::get('/tasks', function () {
-    $tasks = Task::where('id', Auth::user()->id)->get();
+    $tasks = Task::where('admin_id', Auth::user()->id)->get();
     return view('index',[
         'tasks' => $tasks
     ] );
