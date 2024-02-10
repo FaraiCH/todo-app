@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
-use \App\Http\Controllers\TasksController;
+use App\Http\Controllers\TasksController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,28 +14,41 @@ use \App\Http\Controllers\TasksController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 $tasks = Task::all();
 Route::get('/', function () {
     return redirect()->route('tasks.index');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
 
 // Show All Tasks
 Route::get('/tasks', function () use ($tasks) {
     return view('index',[
         'tasks' => $tasks
     ] );
-})->name('tasks.index');
+})->middleware(['auth', 'verified'])->name('tasks.index');
 
 // Load create view
-Route::view('/tasks/create', 'create');
+Route::view('/tasks/create', 'create')->middleware(['auth', 'verified']);
 
 // Show selected Tasks
 Route::get('/tasks/{id}', function ($id) {
     $task = Task::find($id);
     return view('show', ['task' => $task]);
-})->name('tasks.show');
+})->middleware(['auth', 'verified'])->name('tasks.show');
 
-
+// Add CRUD to Task List
 Route::post('task/store', [TasksController::class, 'store'])->name('tasks.store');
 Route::post('task/update', [TasksController::class, 'update'])->name('tasks.update');
 Route::post('task/delete', [TasksController::class, 'delete'])->name('tasks.delete');

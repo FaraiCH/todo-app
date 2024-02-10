@@ -10,12 +10,14 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
+        //Validate Data input
         $data = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'long_description' => 'required'
         ]);
 
+        // Store data into new Task Model Object
         $task = new Task();
         $task->title = $data['title'];
         $task->description = $data['description'];
@@ -23,6 +25,7 @@ class TasksController extends Controller
 
         $task->save();
 
+        // Redirect to main page
         return redirect(route('tasks.index'));
     }
 
