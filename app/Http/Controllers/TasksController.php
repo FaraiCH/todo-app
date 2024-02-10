@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(Request $request)
     {
         //Validate Data input
@@ -22,7 +26,7 @@ class TasksController extends Controller
         $task->title = $data['title'];
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
-
+        $task->admin_id = Auth::user()->id;
         $task->save();
 
         // Redirect to main page

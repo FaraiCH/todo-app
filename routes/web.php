@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 use App\Http\Controllers\TasksController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,7 @@ use App\Http\Controllers\TasksController;
 |
 */
 
-$tasks = Task::all();
+
 Route::get('/', function () {
     return redirect()->route('tasks.index');
 });
@@ -33,7 +34,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // Show All Tasks
-Route::get('/tasks', function () use ($tasks) {
+Route::get('/tasks', function () {
+    $tasks = Task::where('id', Auth::user()->id)->get();
     return view('index',[
         'tasks' => $tasks
     ] );
