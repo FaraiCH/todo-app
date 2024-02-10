@@ -22,35 +22,47 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('tasks.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Show All Tasks
+    Route::get('/tasks', function () {
+        $tasks = Task::where('admin_id', Auth::user()->id)->get();
+        return view('index',[
+            'tasks' => $tasks
+        ] );
+    })->name('tasks.index');
+
+// Load create view
+    Route::view('/tasks/create', 'create');
+
+    Route::get('/tasks/edit/{id}', function ($id){
+        $task = Task::where('id', $id)->where('admin_id', Auth::user()->id)->first();
+        if(!empty($task))
+            return view('upated', ['task' => $task]);
+        else
+            return 'does not exist';
+    })->name('tasks.edit');
+
+// Show selected Tasks
+    Route::get('/tasks/{id}', function ($id) {
+        $task = Task::where('id', $id)->where('admin_id', Auth::user()->id)->first();
+        if(!empty($task))
+            return view('show', ['task' => $task]);
+        else
+            return 'does not exist';
+    })->name('tasks.show');
+
+// Add CRUD to Task List
+    Route::post('task/store', [TasksController::class, 'store'])->name('tasks.store');
+    Route::post('task/update/{id}', [TasksController::class, 'update'])->name('tasks.update');
+    Route::post('task/delete/{id}', [TasksController::class, 'destroy'])->name('tasks.delete');
 });
 
 require __DIR__.'/auth.php';
 
-// Show All Tasks
-Route::get('/tasks', function () {
-    $tasks = Task::where('admin_id', Auth::user()->id)->get();
-    return view('index',[
-        'tasks' => $tasks
-    ] );
-})->middleware(['auth', 'verified'])->name('tasks.index');
 
-// Load create view
-Route::view('/tasks/create', 'create')->middleware(['auth', 'verified']);
-
-// Show selected Tasks
-Route::get('/tasks/{id}', function ($id) {
-    $task = Task::find($id);
-    return view('show', ['task' => $task]);
-})->middleware(['auth', 'verified'])->name('tasks.show');
-
-// Add CRUD to Task List
-Route::post('task/store', [TasksController::class, 'store'])->name('tasks.store');
-Route::post('task/update', [TasksController::class, 'update'])->name('tasks.update');
-Route::post('task/delete', [TasksController::class, 'delete'])->name('tasks.delete');
