@@ -21,7 +21,11 @@
         <!-- Buttons -->
         <div class="flex justify-end">
             <a href="/tasks/edit/{{$task->id}}" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-2">Edit</a>
-            <a href="/task/delete/{{$task->id}}" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2">Delete</a>
+            <form method="POST" action="/task/delete/{{$task->id}}">
+                @csrf
+                @method('post')
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2">Delete</button>
+            </form>
             <a href="/dashboard" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded">Cancel</a>
         </div>
     </div>
