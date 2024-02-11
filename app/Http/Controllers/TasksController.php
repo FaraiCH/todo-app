@@ -41,20 +41,23 @@ class TasksController extends Controller
             'description' => 'required',
             'long_description' => 'required'
         ]);
-
+        // Update record
         $task = Task::find($id);
         $task->title = $data['title'];
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
         $task->save();
 
+        // Redirect to main page
         return redirect(route('tasks.index'));
     }
 
     public function destroy(string $id)
     {
+        //Delete task
         $tasks = Task::find($id)->delete();
 
+        // Redirect to main page
         return redirect(route('tasks.index'));
     }
 }
