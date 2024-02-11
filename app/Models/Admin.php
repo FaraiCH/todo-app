@@ -9,6 +9,6 @@ class Admin extends Model
 {
     use HasFactory;
     public function task(){
-        return $this->hasOne(Task::class);
+        return $this->hasMany(Task::class);
     }
 }
