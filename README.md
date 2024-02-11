@@ -70,12 +70,18 @@ Before running the Docker Compose file, ensure you have Docker installed on your
 ### Steps
 1. **Create a Docker Compose file**: Create a `docker-compose.yml` file in the root directory of your Laravel project or wherever you prefer.
 
-2. **Write Docker Compose Configuration**: Here is a basic example of a `docker-compose.yml` file:
+2. **Write Docker Compose Configuration**: Here is the code for the `docker-compose.yml` file:
     ```yaml
     version: "3.9"
     services:
-    mysql:
-    image: mariadb:10.8.3
+    apache:
+    image: php:8.2-apache
+    ports:
+   - 8080:80
+   depends_on:
+   - mysql
+   mysql:
+   image: mariadb:10.8.3
     # Uncomment below when on Mac M1
     # platform: linux/arm64/v8
     command: --default-authentication-plugin=mysql_native_password
@@ -83,13 +89,18 @@ Before running the Docker Compose file, ensure you have Docker installed on your
     environment:
     MYSQL_ROOT_PASSWORD: root
     ports:
-    - 3306:3306
+   - 3306:3306
    adminer:
    image: adminer
    restart: always
    ports:
-    - 8080:8080
-   ```
+   - 8080:8080
+    #  PHP service
+    php:
+    image: php:8.2-cli
+    depends_on:
+   - mysql
+  ```
 
 3. **Run Docker Compose**: Open your terminal or command prompt, navigate to the directory where your `docker-compose.yml` file is located, and run the following command:
     ```

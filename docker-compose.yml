@@ -1,5 +1,11 @@
 version: "3.9"
 services:
+  apache:
+    image: php:8.2-apache
+    ports:
+        - 8080:80
+    depends_on:
+        - mysql
   mysql:
     image: mariadb:10.8.3
     # Uncomment below when on Mac M1
@@ -15,3 +21,9 @@ services:
     restart: always
     ports:
       - 8080:8080
+    # PHP service
+  php:
+      image: php:8.2-cli
+      depends_on:
+          - mysql
+
