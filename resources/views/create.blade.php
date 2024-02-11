@@ -1,7 +1,7 @@
 <x-app-layout>
 
     @section('title', 'Add Task')
-
+    <!-- Form to create a task -->
     <form class="max-w-sm mx-auto" method="POST" action="{{route('tasks.store')}}">
         @csrf
         <div class="mb-5">

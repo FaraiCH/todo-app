@@ -2,6 +2,7 @@
     @if(!empty($task))
 
     @endif
+        <!-- Task List Container -->
 <div class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
     <div class="max-w-xl w-full bg-white rounded-lg shadow-md p-8">
         <h1 class="text-3xl font-bold mb-4">Task Details</h1>

@@ -1,7 +1,7 @@
 <x-app-layout>
 
     @section('title', 'Add Task')
-
+    <!-- Form to update the task list -->
     <form class="max-w-sm mx-auto" method="POST" action="{{route('tasks.update', $task->id)}}">
         @csrf
         <div class="mb-5">
