@@ -13,7 +13,7 @@
                     <!-- Sample Task Item -->
                     @foreach($tasks as $task)
                         <li class="flex items-center justify-between px-4 py-3">
-                            <span class="text-gray-800"><a href="/tasks/{{$task->id}}" target="_blank">{{$task->title}}</a></span>
+                            <span class="text-gray-800"><a href="/tasks/{{$task->id}}" target="_blank">{{$task->title}} &nbsp;<span class="px-2 py-1 bg-green-200 text-green-700 text-xs font-semibold rounded-full">view</span></a></span>
                             <div class="flex space-x-2">
                                 <!-- Task Status Indicator -->
 
