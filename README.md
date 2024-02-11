@@ -77,11 +77,11 @@ Before running the Docker Compose file, ensure you have Docker installed on your
     apache:
     image: php:8.2-apache
     ports:
-   - 8080:80
-   depends_on:
-   - mysql
-   mysql:
-   image: mariadb:10.8.3
+    - 8080:80
+    depends_on:
+    - mysql
+    mysql:
+    image: mariadb:10.8.3
     # Uncomment below when on Mac M1
     # platform: linux/arm64/v8
     command: --default-authentication-plugin=mysql_native_password
@@ -89,18 +89,18 @@ Before running the Docker Compose file, ensure you have Docker installed on your
     environment:
     MYSQL_ROOT_PASSWORD: root
     ports:
-   - 3306:3306
+    - 3306:3306
    adminer:
    image: adminer
    restart: always
    ports:
-   - 8080:8080
+    - 8080:8080
     #  PHP service
     php:
     image: php:8.2-cli
     depends_on:
-   - mysql
-  ```
+    - mysql
+   ```
 
 3. **Run Docker Compose**: Open your terminal or command prompt, navigate to the directory where your `docker-compose.yml` file is located, and run the following command:
     ```
