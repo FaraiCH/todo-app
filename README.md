@@ -72,7 +72,7 @@ Before running the Docker Compose file, ensure you have Docker installed on your
 
 2. **Write Docker Compose Configuration**: Here is the code for the `docker-compose.yml` file:
     ```yaml
-    version: "3.9"
+    version: "1.1"
     services:
     apache:
     image: php:8.2-apache
