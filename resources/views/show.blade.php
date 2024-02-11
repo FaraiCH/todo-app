@@ -16,7 +16,7 @@
             <p class="text-gray-800">{{$task->description}}</p>
         </div>
         <div class="mb-4">
-            <h2 class="text-xl font-semibold mb-2">Due Date:</h2>
+            <h2 class="text-xl font-semibold mb-2">Notes:</h2>
             <p class="text-gray-800">{{$task->long_description}}</p>
         </div>
         <!-- Buttons -->
