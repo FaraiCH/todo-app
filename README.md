@@ -106,5 +106,5 @@ Before running the Docker Compose file, ensure you have Docker installed on your
    This command will stop and remove the containers created by Docker Compose.
 
 ## Conclusion
-By following these instructions, you will have installed the Todo App. Happy Review! 🚀
+By following these instructions, you will have installed the Todo App. Happy Reviewing! 🚀
 
