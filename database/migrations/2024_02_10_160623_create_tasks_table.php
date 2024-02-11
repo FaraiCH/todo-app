@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create task table and make sure that it as a foreign key linking to an admin user
+
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');

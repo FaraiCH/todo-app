@@ -16,6 +16,7 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        // Use Faker to create dummy data for Tasks
         return [
             'title' => fake()->title(),
             'description' => fake()->paragraph,
